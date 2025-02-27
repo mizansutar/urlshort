@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL Shortener</title>
+    <style>
+        /* Resetting margin and padding */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #00c6ff, #0072ff);
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+            flex-direction: column;
+        }
+
+        /* Container Styling */
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 100%;
+            max-width: 550px;
+            margin-top: 50px;
+        }
+
+        h1 {
+            font-size: 40px;
+            color: #fff;
+            margin-bottom: 25px;
+            font-weight: 700;
+        }
+
+        /* Form group container */
+        .form-group {
+            margin-bottom: 30px;
+        }
+
+        label {
+            font-size: 18px;
+            color: #ddd;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 15px;
+            font-size: 18px;
+            border-radius: 10px;
+            border: none;
+            margin-bottom: 15px;
+            outline: none;
+            transition: 0.3s;
+            background-color: #fff;
+            color: #333;
+        }
+
+        input[type="text"]:focus {
+            border: 2px solid #00c6ff;
+            box-shadow: 0 0 10px rgba(0, 198, 255, 0.6);
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            font-size: 18px;
+            border: none;
+            background-color: #00c6ff;
+            color: #fff;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background-color: #0072ff;
+            box-shadow: 0 5px 15px rgba(0, 114, 255, 0.3);
+        }
+
+        .generated-url {
+            margin-top: 25px;
+            padding: 15px;
+            background-color: #e0f7ff;
+            border-radius: 10px;
+            border: 1px solid #00c6ff;
+            color: #0072ff;
+            font-size: 18px;
+        }
+
+        .generated-url a {
+            text-decoration: none;
+            color: #0072ff;
+            font-weight: bold;
+        }
+
+        .generated-url a:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer Section */
+        .footer {
+            font-size: 14px;
+            color: #ddd;
+            margin-top: 30px;
+        }
+
+        .footer a {
+            color: #00c6ff;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 25px;
+            }
+
+            h1 {
+                font-size: 32px;
+            }
+
+            input[type="text"], button {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Premium URL Shortener</h1>
+
+        <!-- URL Shortener Form -->
+        <div class="form-group">
+            <form action="/url" method="POST">
+                <label for="url">Enter your URL:</label>
+                <input type="text" name="url" placeholder="https://example.com" required />
+                <button type="submit">Generate Short URL</button>
+            </form>
+        </div>
+
+        <!-- Generated URL Display -->
+        <div id="generated-url-display" class="generated-url" style="display: none;">
+            <p><strong>Your Shortened URL:</strong> <a href="" id="shortened-url" target="_blank"></a></p>
+        </div>
+
+        <% if (locals.id) { %>
+            <div class="generated-url">
+                <p><strong>Your Shortened URL:</strong> <a href="http://localhost:8000/url/<%= id %>" target="_blank">http://localhost/url<%= id %></a></p>
+            </div>
+        <% } %>
+
+        <div class="footer">
+            <p>Need help? <a href="/help">Contact Support</a></p>
+        </div>
+    </div>
+
+    <!-- JavaScript to handle the second URL input form -->
+    <script>
+        function generateShortURL() {
+            var url = document.getElementById("url2").value;
+            if (url) {
+                var shortURL = "http://localhost/url/" + btoa(url); // Simple encoding as an example
+                document.getElementById("shortened-url").href = shortURL;
+                document.getElementById("shortened-url").innerText = shortURL;
+                document.getElementById("generated-url-display").style.display = "block";
+            } else {
+                alert("Please enter a valid URL!");
+            }
+        }
+    </script>
+
+</body>
+</html>
